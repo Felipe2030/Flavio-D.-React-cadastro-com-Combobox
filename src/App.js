@@ -74,11 +74,11 @@ function App() {
         <h2>Movimento</h2><br/>
 
         <label>Mês:
-          <input maxlength="2" type="text" placeholder="Digite um mes" value={mes} onChange={(e) => setMes(e.target.value)}  required/>
+          <input type="text" placeholder="Digite um mes" value={mes} onChange={(e) => setMes(e.target.value)}  required/>
         </label>
 
         <label>Ano:
-          <input maxlength="4" type="text" placeholder="Digite um ano" value={ano} onChange={(e) => setAno(e.target.value)} required/>
+          <input type="text" placeholder="Digite um ano" value={ano} onChange={(e) => setAno(e.target.value)} required/>
         </label>
 
         <label>Produto:
