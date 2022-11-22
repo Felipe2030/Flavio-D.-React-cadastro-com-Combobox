@@ -1,0 +1,93 @@
+.container {
+    height: 100vh;
+    display: flex;
+    background: linear-gradient(#121212,#212b46);
+}
+
+.title {
+    font-size: 85px;
+    color: #FFF;
+}
+
+.containerInputs {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.containerInputs label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px;
+}
+
+.containerInputs input, .containerInputs textarea, .containerInputs select {
+    width: 80%;
+}
+
+.containerInputs label input {
+    width: calc(80% - 8px);
+    padding: 4px;
+}
+
+.containerInputs label select {
+    width: calc(80% + 4px);
+    padding: 4px;
+}
+
+.containerInputs label textarea {
+    width: calc(80% - 6px);
+    height: 100px;
+    padding: 4px;
+}
+
+.containerButtons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.buttonSubmit {
+    border: 0px;
+    background-color: #212b46;
+    color: #FFF;
+    border-radius: 4px;
+    height: 40px;
+    width: 100px;
+    margin: 0px 4px;
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-x: scroll;
+}
+
+.main span {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main table {
+    width: 100%;
+}
+
+.main table thead tr td {
+   padding: 4px 8px;
+   font-weight: 600;
+   color: #121212;
+}
+
+.main table tbody tr td {
+    padding: 4px 8px;
+}
