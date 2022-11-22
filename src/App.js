@@ -14,8 +14,8 @@ function App() {
   const [descricao, setDescricao] = useState("");
 
   useEffect(() => {
-      api.get(`/Cosif`).then((res) => {
-        setListCosif(res.data);
+      api.get(`/Produto`).then((res) => {
+        setListProduto(res.data);
       });
 
       api.get(`/Movimento`).then((res) => {
@@ -26,9 +26,9 @@ function App() {
   function getCosif(valueProduto){
     api.get(`/Cosif`).then((res) => {
       const listagem = res.data;
-      listagem.map((cosif) => {
+      setListCosif(listagem.map((cosif) => {
         return (cosif.codProduto == valueProduto) ? cosif : false;
-      }).filter((cosif) => (cosif));
+      }).filter((cosif) => (cosif)));
     });
   }
 
