@@ -97,7 +97,7 @@ function App() {
           <select value={cosif} onChange={(e) => setCosif(e.target.value)} required>
             <option>---</option>
             {listCosif.map(function(cosif, i){
-                return <option key={i} value={cosif.codCosif}>{cosif.codClassificacao}</option>;
+                return <option key={i} value={cosif.codCosif}>{cosif.codCosif} - {cosif.codClassificacao}</option>;
             })}
           </select>
         </label>
