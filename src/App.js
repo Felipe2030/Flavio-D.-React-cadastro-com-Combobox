@@ -12,6 +12,7 @@ function App() {
   const [listCosif, setListCosif] = useState([]);
   const [valor, setValor]         = useState("");
   const [descricao, setDescricao] = useState("");
+  const [bloqueio, setBloqueio] = useState(true);
 
   useEffect(() => {
       api.get(`/Produto`).then((res) => {
@@ -41,31 +42,37 @@ function App() {
     setProduto("");
   }
 
-  async function novo(){
-    let lancamento = 1;
-    let codUsuario = "AMD";
-
-    if(!!!mes || !!!ano || !!!valor || !!!descricao || !!!cosif || !!!produto){
-      alert("Preencha todos os campos!");
-      return;
-    }
-    
-    api.post(`/Movimento`,{
-      "mes": mes,
-      "ano": ano, 
-      "lancamento": parseInt(lancamento), 
-      "codProduto": produto,
-      "codCosif": cosif,
-      "descricao": descricao,
-      "codUsuario": codUsuario,
-      "valor": parseFloat(valor)
-    }).then((res) => {
-      limpar();
+  async function incluir(){
+    if(!bloqueio){
+      let lancamento = 1;
+      let codUsuario = "AMD";
+  
+      if(!!!mes || !!!ano || !!!valor || !!!descricao || !!!cosif || !!!produto){
+        alert("Preencha todos os campos!");
+        return;
+      }
       
-      api.get(`/Movimento`).then((res) => {
-        setListMovimento(res.data);
-      });
-    });
+      api.post(`/Movimento`,{
+          "mes": mes,
+          "ano": ano, 
+          "lancamento": parseInt(lancamento), 
+          "codProduto": produto,
+          "codCosif": cosif,
+          "descricao": descricao,
+          "codUsuario": codUsuario,
+          "valor": parseFloat(valor)
+        }).then((res) => {
+          limpar();
+          setBloqueio(true);
+          api.get(`/Movimento`).then((res) => {
+            setListMovimento(res.data);
+          });
+        });
+      }
+  }
+
+  async function novo(){
+    setBloqueio(false);
   }
 
   return (
@@ -74,18 +81,18 @@ function App() {
         <h2>Movimento</h2><br/>
 
         <label>Mês:
-          <input type="text" placeholder="Digite um mes" value={mes} onChange={(e) => setMes(e.target.value)}  required/>
+          <input type="text" placeholder="Digite um mes" value={mes} onChange={(e) => setMes(e.target.value)}  required disabled={bloqueio}/>
         </label>
 
         <label>Ano:
-          <input type="text" placeholder="Digite um ano" value={ano} onChange={(e) => setAno(e.target.value)} required/>
+          <input type="text" placeholder="Digite um ano" value={ano} onChange={(e) => setAno(e.target.value)} required disabled={bloqueio}/>
         </label>
 
         <label>Produto:
           <select value={produto} onChange={(e) => {
             setProduto(e.target.value)
             getCosif(e.target.value)
-          }} required>
+          }} required disabled={bloqueio}>
             <option>---</option>
             {listProduto.map(function(produto, i){
                 return <option key={i} value={produto.codProduto}>{produto.desProduto}</option>;
@@ -94,7 +101,7 @@ function App() {
         </label>
 
         <label>Cosif:
-          <select value={cosif} onChange={(e) => setCosif(e.target.value)} required>
+          <select value={cosif} onChange={(e) => setCosif(e.target.value)} required disabled={bloqueio}>
             <option>---</option>
             {listCosif.map(function(cosif, i){
                 return <option key={i} value={cosif.codCosif}>{cosif.codCosif} - {cosif.codClassificacao}</option>;
@@ -103,18 +110,18 @@ function App() {
         </label>
 
         <label>Valor:
-          <input type="text" placeholder="Digite um valor" value={valor} onChange={(e) => setValor(e.target.value)} required/>
+          <input type="text" placeholder="Digite um valor" value={valor} onChange={(e) => setValor(e.target.value)} required disabled={bloqueio}/>
         </label>
 
         <label>Descrição:
-          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} required>
+          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} required disabled={bloqueio}>
           </textarea>
         </label>
         
         <div className='containerButtons'>
           <button className="buttonSubmit" onClick={limpar}>Limpar</button>
           <button className="buttonSubmit" onClick={novo}>Novo</button>
-          <button className="buttonSubmit">Incluir</button>
+          <button className="buttonSubmit" onClick={incluir}>Incluir</button>
         </div>
       </div>
 
